@@ -3,13 +3,6 @@ import pandas
 import requests
 import snowflake.connector
 
-my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
-my_cur = my_cnx.cursor()
-my_cur.execute("select * from pc_rivery_db.public.fruit_load_list")
-my_data_row = my_cur.fetchone()
-streamlit.text("The fruit load list contains:")
-streamlit.text(my_data_row)
-
 streamlit.title('My Parents New Healthy Diner')
 streamlit.header('Breakfast Menu 🍞')
 streamlit.text('🐔 Eggs and Bacon')
@@ -37,4 +30,9 @@ fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
 # write your own comment - what does this do?
 streamlit.dataframe(fruityvice_normalized)
 
-
+my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
+my_cur = my_cnx.cursor()
+my_cur.execute("select * from pc_rivery_db.public.fruit_load_list")
+my_data_row = my_cur.fetchone()
+streamlit.header("The fruit load list contains:")
+streamlit.dataframe(my_data_row)
